@@ -26,7 +26,7 @@ public class DataLodingAdapter extends RecyclerView.Adapter<DataLodingAdapter.My
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
-            count = (TextView) view.findViewById(R.id.count);
+            count = (TextView) view.findViewById(R.id.description);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
         }
     }
@@ -51,7 +51,7 @@ public class DataLodingAdapter extends RecyclerView.Adapter<DataLodingAdapter.My
         holder.title.setText(data.getTitle());
         holder.count.setText(data.getDescription());
 
-        // loading album cover using Glide library
+        //loading image thumbnail using picasso
         //Glide.with(mContext).load(data.getImageHref());
         if(data.getImageHref() != null) {
             PicassoTrustAll.getInstance(mContext)
