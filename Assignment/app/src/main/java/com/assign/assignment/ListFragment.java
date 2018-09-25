@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import retrofit2.Response;
 
-public class ListFragment extends Fragment implements MainContract.viewInterface, SwipeRefreshLayout.OnRefreshListener{
+public class ListFragment extends Fragment implements MainContract.viewInterface, SwipeRefreshLayout.OnRefreshListener {
     View rootView;
     private RecyclerView recyclerView;
     private DataLodingAdapter adapter;
@@ -41,7 +41,6 @@ public class ListFragment extends Fragment implements MainContract.viewInterface
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_view, container, false);
-
         recyclerView = rootView.findViewById(R.id.recycler_view);
         // refreshing the list on pull
         swipeRefreshLayout = rootView.findViewById(R.id.refresh);
@@ -50,6 +49,11 @@ public class ListFragment extends Fragment implements MainContract.viewInterface
         this.presenter = new MainPresenter(this);
         presenter.getListofdata();
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -63,20 +67,16 @@ public class ListFragment extends Fragment implements MainContract.viewInterface
     }
 
     @Override
-    public void getListofArray(FactsResponse response) {
-
-    }
-
-    @Override
     public void getListofArray(Response<FactsResponse> response) {
 
-        if(response!=null) {
+        if (response != null) {
             adapter = new DataLodingAdapter(getActivity(), response.body().getRows());
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setLayoutManager(mLayoutManager);
             recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.setAdapter(adapter);;
-        }else{
+            recyclerView.setAdapter(adapter);
+            ;
+        } else {
         }
 
     }

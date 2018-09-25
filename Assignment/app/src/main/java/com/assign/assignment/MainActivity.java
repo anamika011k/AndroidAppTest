@@ -1,18 +1,24 @@
 package com.assign.assignment;
 
+import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListFragment listFragment = new ListFragment();
-        getFragmentManager().beginTransaction()
-                .replace(R.id.listFragment, listFragment).commit();
+
+        ListFragment fragment = (ListFragment) getFragmentManager().findFragmentById(R.id.fragment_container);
+
+        if (fragment == null) {
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.fragment_container, new ListFragment());
+            fragmentTransaction.commit();
+        }
 
     }
 }

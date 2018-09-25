@@ -14,8 +14,6 @@ public interface  MainContract {
     interface viewInterface{
         void showProgress();
         void hideProgress();
-        void getListofArray(FactsResponse response);
-
         void getListofArray(Response<FactsResponse> response);
     }
 }
