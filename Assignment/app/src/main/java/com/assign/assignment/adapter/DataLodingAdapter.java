@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.assign.assignment.R;
 import com.assign.assignment.model.Row;
 import com.assign.assignment.utils.PicassoTrustAll;
-
 import java.util.List;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class DataLodingAdapter extends RecyclerView.Adapter<DataLodingAdapter.MyViewHolder> {
 
@@ -20,17 +20,20 @@ public class DataLodingAdapter extends RecyclerView.Adapter<DataLodingAdapter.My
     private List<Row> rowListData;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, count;
-        public ImageView thumbnail;
+        @BindView(R.id.title)
+        TextView title;
+
+        @BindView(R.id.description)
+        TextView description;
+
+        @BindView(R.id.thumbnail)
+        ImageView thumbnail;
 
         public MyViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            count = (TextView) view.findViewById(R.id.description);
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+            ButterKnife.bind(this, view);
         }
     }
-
 
     public DataLodingAdapter(Context mContext, List<Row> albumList) {
         this.mContext = mContext;
@@ -49,16 +52,16 @@ public class DataLodingAdapter extends RecyclerView.Adapter<DataLodingAdapter.My
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Row data = rowListData.get(position);
         holder.title.setText(data.getTitle());
-        holder.count.setText(data.getDescription());
+        holder.description.setText(data.getDescription());
 
         //loading image thumbnail using picasso
         //Glide.with(mContext).load(data.getImageHref());
-        if(data.getImageHref() != null) {
+        if (data.getImageHref() != null) {
             PicassoTrustAll.getInstance(mContext)
                     .load(data.getImageHref().toString())
                     .placeholder(R.drawable.ic_launcher_background)
                     .into(holder.thumbnail);
-        }else{
+        } else {
             PicassoTrustAll.getInstance(mContext)
                     .load("http://images.findicons.com/files/icons/662/world_flag/128/flag_of_canada.png")
                     .placeholder(R.drawable.ic_launcher_background)

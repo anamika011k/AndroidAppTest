@@ -17,11 +17,6 @@ public class MainPresenter implements MainContract.presenterInterface {
     }
 
     @Override
-    public void onDestroy() {
-
-    }
-
-    @Override
     public void getListofdata() {
         apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<FactsResponse> call = apiService.getFactsResponse();
@@ -30,10 +25,7 @@ public class MainPresenter implements MainContract.presenterInterface {
             @Override
             public void onResponse(Call<FactsResponse> call, Response<FactsResponse> response) {
                 if (response.code() == 200) {
-                    if (response.body().getRows() != null) {
-                        view.getListofArray(response);
-
-                    }
+                    view.getListofArray(response);
                 }
             }
 

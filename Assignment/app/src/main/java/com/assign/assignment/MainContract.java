@@ -7,13 +7,10 @@ import retrofit2.Response;
 public interface  MainContract {
 
     interface presenterInterface {
-        void onDestroy();
         void getListofdata();
     }
 
     interface viewInterface{
-        void showProgress();
-        void hideProgress();
         void getListofArray(Response<FactsResponse> response);
     }
 }
